@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor Dot & Outline</title>
+    <style>
+.cursor-dot
+{
+    width:5px;
+    height:5px;
+    background-color: rgb(207, 15, 15);
+
+}
+.cursor-outline
+{
+    width:30px;
+    height:30px;
+    border:2px solid hsla(0, 83%, 47%, 0.5);
+}
+.cursor-dot,.cursor-outline
+{
+    position:fixed;
+    top:0;
+    left:0;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    z-index:1;
+    pointer-events:none;
+}
+    </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
+<script>
+    const dot = document.querySelector('.cursor-dot');
+    const outline = document.querySelector('.cursor-outline');
+    
+    window.addEventListener("mousemove", (e) => {
+        const posx = e.clientX;
+        const posy = e.clientY;
+    
+        dot.style.left = `${posx}px`;
+        dot.style.top = `${posy}px`;
+    
+        outline.animate(
+            {
+                left: `${posx}px`,
+                top: `${posy}px`,
+            },
+            {
+                duration: 500,
+                fill: 'forwards'
+            }
+        );
+    });
+    
+</script>
+</body>
+</html>
+
+
+
+
+
+<!-- Explanation:
+
+    window.addEventListener("mousemove", ...):
+       1)  window is indeed a DOM object, but specifically, it represents the entire browser window, not an HTML element like a <div>. 
+        It’s a global object that allows you to listen for events occurring on the window (such as resizing, scrolling, or mouse movements).
+       2)  addEventListener is a method used to listen for specific events on an element (in this case, window).
+        "mousemove" is the event we’re listening for. This event fires whenever the mouse is moved anywhere in the window.
+       3) (e) => { left = e.clientX; }:
+        This part defines a callback function that gets executed whenever the mousemove event is triggered. The function receives the event object (e) as a parameter, which contains information about the event, like the mouse’s position, the element being interacted with, and more.
+        e.clientX represents the horizontal position of the mouse relative to the viewport (the visible area of the browser window). It’s measured from the left side of the window.
+        left = e.clientX; assigns this horizontal position to the left variable.
+
+
+
+    
+       - window is a DOM object that represents the browser's window.
+       - mousemove is the event triggered when the mouse moves.
+       - e is the event object, which contains information about the event, including the mouse's position.
+       - e.clientX gives the horizontal position of the mouse relative to the left edge of the window. -->
+
+
+       <!--     For the dot: We use dot.style.left because we want the dot to follow the mouse instantly. We need to manually update its position.
+
+    For the outline: We use outline.animate() because we want the outline to follow the mouse slowly with animation. The animate function automatically handles the change in position for us over a duration of time, so we don't need to manually update outline.style.left or outline.style.top.
+
+     Think of it like:
+
+    Dot: You’re putting the dot exactly where the mouse is, right away.
+    Outline: You’re asking the outline to move smoothly to follow the mouse. -->

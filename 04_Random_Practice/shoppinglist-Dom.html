@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #shoppingList {
+            list-style-type: none;
+            padding: 0;
+        }
+        .list-item {
+            padding: 8px;
+            border: 1px solid #ccc;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .actions button {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Shopping List</h2>
+    
+    <input type="text" id="itemInput" placeholder="Enter item">
+    <button id="addItemBtn">Add Item</button>
+    
+    <ul id="shoppingList"></ul>
+
+    <script>
+        // Get elements
+        const itemInput = document.getElementById("itemInput");
+        const addItemBtn = document.getElementById("addItemBtn");
+        const shoppingList = document.getElementById("shoppingList");
+
+        // Store items in an array (keeps track of the list)
+        const items = [];
+
+        // Function to add an item
+        function addItem() {
+            if (itemInput.value.trim() === "") {
+                alert("Please enter an item.");
+                return;
+            }
+
+            const itemText = itemInput.value.trim();
+            items.push(itemText); // Add to array
+
+            // Create list item
+            const li = document.createElement("li");
+            li.className = "list-item";
+
+            // Item text
+            const span = document.createElement("span");
+            span.innerText = itemText;
+            span.className = "item-text";
+
+            // Actions div
+            const actions = document.createElement("div");
+            actions.className = "actions";
+
+            // Edit button
+            const editBtn = document.createElement("button");
+            editBtn.innerText = "Edit";
+            editBtn.setAttribute("class", "edit-btn");
+            editBtn.onclick = () => editItem(span, li);
+
+            // Remove button
+            const removeBtn = document.createElement("button");
+            removeBtn.innerText = "Remove";
+            removeBtn.setAttribute("class", "remove-btn");
+            removeBtn.onclick = () => {
+                li.remove();
+                const index = items.indexOf(itemText);
+                if (index > -1) {
+                    items.splice(index, 1); // Remove from array
+                }
+            };
+
+            // Append elements
+            actions.appendChild(editBtn);
+            actions.appendChild(removeBtn);
+            li.appendChild(span);
+            li.appendChild(actions);
+            shoppingList.appendChild(li);
+
+            // Clear input
+            itemInput.value = "";
+        }
+
+        // Function to edit an item
+        function editItem(span, li) {
+            const newText = prompt("Edit item:", span.innerText);
+            if (newText !== null && newText.trim() !== "") {
+                span.innerText = newText;
+
+                // Update items array
+                const index = items.indexOf(span.innerText);
+                if (index > -1) {
+                    items[index] = newText;
+                }
+            }
+        }
+
+        // Add event listener
+        addItemBtn.addEventListener("click", addItem);
+
+        // Function to log all list items (querySelectorAll example)
+        function logAllItems() {
+            const allItems = document.querySelectorAll(".item-text");
+            console.log("Current Shopping List:");
+            allItems.forEach(item => console.log(item.innerText));
+        }
+    </script>
+</body>
+</html>

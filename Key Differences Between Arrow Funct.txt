@@ -1,0 +1,108 @@
+Key Differences Between Arrow Functions and Normal Functions:
+
+1. Syntax:
+
+Arrow Functions: Shorter and more concise.
+Normal Functions: Uses the function keyword and can have a name.
+
+2. this Behavior:
+
+Arrow Functions: They do not have their own this. They inherit this from the surrounding (lexical) context. This is useful when you want to use the same this inside the arrow function as in the outer function or object.
+Normal Functions: They have their own this, which refers to the object that called the function.
+
+3. Use Case:
+Arrow Functions: Preferred for short, single-expression functions and when you want to avoid re-binding this in a function.
+Normal Functions: Typically used when you need a named function or when you need to bind a new this.
+
+
+Example to Demonstrate the Differences:
+Let's use an example where we demonstrate how this works differently in arrow functions and normal functions:
+
+
+const obj = {
+  value: 10,
+  normalFunction: function() {
+    console.log("Normal Function this:", this.value); // This refers to obj.value
+  },
+  arrowFunction: () => {
+    console.log("Arrow Function this:", this.value); // This refers to the global object (undefined in strict mode)
+  }
+};
+
+// Calling both functions
+obj.normalFunction();  // Logs: Normal Function this: 10
+obj.arrowFunction();   // Logs: Arrow Function this: undefined (because 'this' is inherited from the outer scope)
+Explanation:
+Normal Function (normalFunction):
+
+When normalFunction is called inside obj, this refers to the object obj, so this.value gives the correct value 10.
+Arrow Function (arrowFunction):
+
+In arrowFunction, this does not refer to obj (the object from which it is called). Instead, it refers to the outer lexical scope (in this case, the global context). Since this.value is not defined globally (in strict mode), it logs undefined.
+Basic Syntax Comparison:
+
+
+Normal Function:
+
+function normalFunction() {
+  return "Hello, World!";
+}
+console.log(normalFunction());  // Logs: Hello, World!
+
+
+Arrow Function:
+
+const arrowFunction = () => "Hello, World!";
+console.log(arrowFunction());  // Logs: Hello, World!
+
+
+normalFunction: function() {
+  // function body
+}
+You are defining a method inside an object. Here's how it works:
+
+1. Method Definition in an Object:
+The normalFunction is a method that belongs to the object. In this case, the function is being added as a property of the object. The function itself is not another object; rather, it is a function that is being used as a property of an object.
+2. Object Structure:
+In JavaScript, an object is a collection of key-value pairs, where the keys are strings (or symbols), and the values can be any type of value, including functions.
+
+
+Example:
+
+const obj = {
+  value: 10,
+  normalFunction: function() {
+    console.log("Normal function this:", this.value);
+  }
+};
+
+obj.normalFunction();  // Logs: Normal function this: 10
+In this case:
+
+obj is an object.
+normalFunction is a method of obj.
+The method is a function associated with the obj object, which is accessed using obj.normalFunction().
+What Does normalFunction: function() Mean?
+normalFunction is a key (or property name) of the object.
+function() is the function expression that defines the method, and this function will be associated with the normalFunction key.
+Is It Another Object Inside an Object?
+No, it's not another object. It is a function (also known as a method) inside an object. Functions are first-class objects in JavaScript, which means they can be treated like any other value (string, number, array, etc.), so they can be assigned as properties of an object.
+
+Alternative Syntax for Method Definition:
+In ES6 and later, you can also define methods in a more concise way:
+
+
+const obj = {
+  value: 10,
+  normalFunction() {
+    console.log("Normal function this:", this.value);
+  }
+};
+
+obj.normalFunction();  // Logs: Normal function this: 10
+This is functionally the same as normalFunction: function() {} but is more concise.
+
+Summary:
+
+normalFunction: function() is defining a function as a method of an object.
+You are not declaring another object inside the object, but instead, you are adding a function to the object as a property.

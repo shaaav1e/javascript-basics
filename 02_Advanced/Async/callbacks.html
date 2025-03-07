@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALLBACKS - ASYNC</title>
+    <script>
+
+        //Main Issue: Suppose getPosts() takes 1 second to execute & createPosts takes 2 seconds
+        // By the time createPost executes DOM is already printed and POST THREE won't show.
+        // This is where Async comes - (CALLBACKS)
+        const posts = [
+            { title: 'POST ONE', body: "This is Post one" },
+            { title: "POST TWO", body: 'This is Post two' }
+        ];
+        function getPosts() {
+            setTimeout(() => {
+                let output = '';
+                posts.forEach((p) => {
+                    output += `<li>${p.title}</li>`;
+                });
+                document.body.innerHTML = output;
+            }, 1000);
+        }
+
+        // getPosts();
+
+        function createPosts(post, callback) //no parantheses on callback
+        {
+            setTimeout(() => {
+                posts.push(post);
+                callback();
+            }, 2000)
+        }
+
+        createPosts({ title: "POST THREE", body: 'This is Post Three' }, getPosts); //no parantheses on getPosts
+
+        //Create Post waited 2 seconds and showed Post Three as well. 
+        //Reason it waited because it had to wait to create the Post
+        //before it actually called the callback
+
+
+
+
+        //___________________________________________________________________________________________________________
+        const grades = [
+
+            { name: 'Swz', grade: 'A-' },
+            { name: 'MTK', grade: 'A' }
+        ];
+
+        function showgrades() {
+            let result = '';
+            setTimeout(() => {
+                grades.forEach((g) => {
+                    result += `<li>${g.grade}</li>`;
+                });
+                document.body.innerHTML = result;
+            }, 2000);
+        }
+
+        function creategrade(g, callback) {
+            setTimeout(() => {
+                grades.push(g);
+                callback();
+            }, 1000);
+        }
+
+        creategrade({ name: 'xyz', grade: 'F' }, showgrades);
+    </script>
+</head>
+
+<body>
+    <h1>Callbacks</h1>
+</body>
+
+</html>

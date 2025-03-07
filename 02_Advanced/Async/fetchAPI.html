@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Api with Async-Await</title>
+</head>
+<body>
+<script>
+    async function fetchUsers()
+    {
+        const res= await fetch('https://jsonplaceholder.typicode.com/posts'); //waiting to fetch data
+        const outputdata= await res.json(); //waiting to format data to JSON
+        console.log(outputdata);
+    }
+    fetchUsers();
+</script>
+</body>
+</html>

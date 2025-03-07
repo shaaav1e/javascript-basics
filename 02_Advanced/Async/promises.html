@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROMISES - ASYNC</title>
+    <script>
+
+        //PROMISES HAS THREE STATS:
+        //2 -> RESOLVE -> WHEN CODE RUNS SUCCESSFULLY!
+        //3 -> REJECT -> WHEN AN ERROR OCCURS!
+        // Resolve -> .then
+        // Reject ->  .catch
+
+        const posts = [
+        { title: 'POST ONE', body: "This is Post one" },
+        { title: "POST TWO", body: 'This is Post two' }
+    ];
+    
+    function getPosts() {
+        setTimeout(() => {
+            let output = '';
+            posts.forEach((p) => {
+                output += `<li>${p.title}</li>`;
+            });
+            document.body.innerHTML = output;
+        }, 1000);
+    }
+    
+    // getPosts();
+    
+    function createPosts(post) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                posts.push(post);
+                const error = false;
+                if (!error) {
+                    resolve();
+                } else {
+                    reject('Error: Something went wrong');
+                }
+            }, 2000);
+        });
+    }
+    
+    createPosts({ title: "POST THREE", body: 'This is Post Three' })
+        .then(getPosts) // Calling getPosts after the promise is : Resolve
+        .catch((err) => console.log(err)); // Catching any error : Reject
+    
+
+        //PROMISES ALL -> SOLVES ISSUE OF USING MULTIPLE .THEN 
+        
+        const promise1= Promise.resolve("PROMISES ALL");
+        const promise2=73;
+        const promise3= new Promise((resolve,reject) =>
+        setTimeout(resolve,2000,"Good!")
+        );
+
+        //FETCH API TO MAKE HTTP REQUESTS
+        //FETCH TAKES 2 THEN, one for formatting to JSON, second for giving data
+        const promise4= fetch('https://jsonplaceholder.typicode.com/users/1/todos').then(res => res.json());
+ 
+        Promise.all([promise1,promise2,promise3,promise4]) .then((values) => console.log(values));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

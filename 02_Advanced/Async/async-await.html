@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASYNC & AWAIT</title>
+    <script>
+     //async-await : MORE ELEGANT WAY OF HANDLING PROMISES 
+    // async-await with try & catch -----> (MODERN JAVASCRIPT)
+   //  async: returns a promise
+  //   await: waiting for asynchronous process to complete without blocking code.
+ //    need to use async keyword before function and use of await keyword within function 
+
+ const posts = [
+    { title: 'POST ONE', body: "This is Post one" },
+    { title: "POST TWO", body: "This is Post two" }
+];
+
+function getPosts() {
+    setTimeout(() => {
+        let output = '';
+        posts.forEach((p) => {
+            output += `<li>${p.title}</li>`;
+        });
+        document.body.innerHTML = output;
+    }, 1000);
+}
+
+function createPosts(post) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            posts.push(post);
+            resolve(); // Resolve the Promise when done
+        }, 2000);
+    });
+}
+
+async function init() {
+    await createPosts({ title: "POST THREE", body: "This is Post Three" });
+    getPosts(); // Now runs after createPosts() is done
+}
+
+init();
+
+  // LOGIC Of function: We are waiting on createPosts to be done before moving onto getPosts
+    </script>
+</head>
+<body>
+  
+</body>
+</html>

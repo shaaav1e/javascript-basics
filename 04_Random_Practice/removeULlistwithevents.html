@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events- Prac</title>
+    <style>
+        .container {
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #list {
+            width:20%;
+            min-width:50%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3em;
+        }
+        
+        li {
+            border: 2px solid rgb(109, 105, 105);
+            border-radius: 12px;
+            padding: 1em 1.4em;
+            box-sizing: border-box; 
+        }
+        
+        #btn {
+            margin-top: 1em;
+            box-sizing: border-box; 
+            border-radius: 7px;
+            border: none;
+            background-color: antiquewhite;
+            color: black;
+            padding: 0.7em 2em;
+        }
+    </style>
+</head>
+<body>
+<!-- Clear All items on li using event -->
+
+<div class="container">
+    <ol id="list">
+        <li>Apple</li>
+        <li>Banana</li>
+        <li>Orange</li>
+        <li>Grape</li>
+        <li>Peach</li> 
+    </ol>
+    <button id="btn">Clear All</button>
+</div>
+</body>
+<script>
+const btn= document.getElementById('btn');
+const ul= document.getElementById('list');
+btn.addEventListener('click',()=>{
+while(ul.firstChild)
+{
+    ul.removeChild(ul.firstChild);
+}
+});
+//ul.firstChild: Checks if li element if present
+//then it keeps on removing until there are no child left
+</script>
+</html>

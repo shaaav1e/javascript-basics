@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adding an item to li using JS - Inner HTML, AppendChild </title>
+    <style>
+    </style>
+</head>
+<body>
+<div>
+    <ul class="shopping-list">
+        <li>Apples</li>
+        <li>Bananas</li>
+        <li>Cherries</li>
+        <li>Bread</li>
+    </ul>
+</div>
+<script>
+    // InnerHTML Method is a quick way but less efficient and not a cleaner way to write code.
+    function createlistitem(item)
+    {
+        const li= document.createElement('li');
+        li.innerHTML= `${item}`;
+        document.querySelector('.shopping-list').appendChild(li);
+    }
+    createlistitem('Olive oil');
+
+
+    // AppendChild Method is a cleaner way to write code.
+</script>
+</body>
+</html>
