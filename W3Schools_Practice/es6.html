@@ -1,0 +1,49 @@
+<!-- Q: Difference b/w Normal and Arrow function?
+
+
+Ans: In Normal function -> this refers the calling object
+     In Arrow function -> this inherits from the surrounding scope where it is defined
+     "This keyword always represents the object that defined the arrow function"
+
+___________________________________________________________________________________________
+
+Normal Function:
+
+const obj={
+    name:'shawaiz',
+    show()
+    {
+        console.log(this.name); // this refers to obj
+    }
+}
+obj.show(); //shawaiz
+
+
+Arrow Function:
+const obj={
+    name:'shawaiz',
+    show = () =>
+    {
+        console.log(this.name); // this refers to global object (window in browsers)
+    }
+}
+obj.show(); //undefined
+
+
+Tricky Part:
+
+const obj={
+    name:'shwz',
+    show()
+    {
+        const arrowfunc=() =>
+        {
+            console.log(this.name);
+        }
+        arrowfunc();
+    }
+    
+}
+obj.show(); // shwz -> because arrow function inherits this from the surrounding scope where it is defined, 
+it inherits from show() function and show() function is defined in obj, so this refers to obj.
+ -->
